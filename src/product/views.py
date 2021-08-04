@@ -75,7 +75,7 @@ def category(request, category_slug):
         'd': d
     }
 
-    return render(request, 'product/product_list.html', context)
+    return render(request, 'product/home-classic.html', context)
 
 
 def Product_detail(request, slug):
@@ -90,7 +90,8 @@ def Product_detail(request, slug):
         'in_cart': in_cart,
 
     }
-    return render(request, 'product/product_list.html.html', context)
+    return render(request, 'product/product-detail-layout-01.html', context)
+
 
 
 # store :  any  products under category  and  slug
@@ -116,6 +117,7 @@ def store(request, category_slug=None):
         product_list = paginator.get_page(page_number)
 
     context = {
+        'categories':categories,
         'product_list': product_list,
         'product_count': product_count,
         'd': d,
@@ -141,6 +143,6 @@ def search(request):
                 'd': d,
             }
 
-            return render(request, 'product/product_list.html', context)
+            return render(request, 'product/home-classic.html', context)
     return HttpResponseRedirect(
         '/')  # if you do search  other page same page details or anther page back to display all products in home page

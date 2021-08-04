@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 {% extends 'product/base.html' %}
+{% load static  %}
 <html lang="en">
+{% block body %}
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="assets/images/k_favicon_32x.png">
+    <title>Kalle's shop filter sidebar</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:300,300i,400,400i,500,500i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/nouislider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/drift-basic.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/photoswipe.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-icon.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/defined.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+</head>
 
 <body class="kalles-template single-product-template zoom_tp_2 header_full_true des_header_3 css_scrollbar lazy_icons btnt4_style_2 css_scrollbar template-index kalles_toolbar_true hover_img2 swatch_style_rounded swatch_list_size_small label_style_rounded wrapper_full_width header_full_true hide_scrolld_true lazyload">
-{% block body %}
 
 
 <div id="nt_wrapper">
@@ -20,7 +41,7 @@
             <div class="page-head tc pr oh cat_bg_img page_head_">
                 <div class="parallax-inner nt_parallax_false lazyload nt_bg_lz pa t__0 l__0 r__0 b__0" data-bgset="assets/images/shop/shop-banner.jpg"></div>
                 <div class="container pr z_100">
-                    <h1 class="mb__5 cw">Women</h1>
+                    <h1 class="mb__5 cw">{{ categories }}</h1>
                     <p class="mg__0">Shop through our latest selection of Women’s Clothing and Accessories.</p>
                 </div>
             </div>
@@ -280,15 +301,24 @@
 
                         <!--products list-->
                         <div class="on_list_view_false products nt_products_holder row fl_center row_pr_1 cdt_des_1 round_cd_false nt_cover ratio_nt position_8 space_30 nt_default">
+
+                            {% for product in product_list%}
+                                {% if product.approved == True %}
+
                             <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
+
+
                                 <div class="product-inner pr">
                                     <div class="product-image pr oh lazyload">
+                                                                            {% if product.PRDISNew == True %}
+
                                         <span class="tc nt_labels pa pe_none cw"><span class="nt_label new">New</span></span>
+                                        {% endif %}
                                         <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-01.jpg"></div>
+                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="{{product.PRDIMG.url }} "></div>
                                         </a>
                                         <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-02.jpg"></div>
+                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="{{product.PRDIMG.url }} "></div>
                                         </div>
                                         <div class="nt_add_w ts__03 pa ">
                                             <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
@@ -303,21 +333,25 @@
                                     </div>
                                     <div class="product-info mt__15">
                                         <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Analogue Resin Strap</a>
+                                            <a class="cd chp" href="product-detail-layout-01.html">{{ product.PRDName }}</a>
                                         </h3>
-                                        <span class="price dib mb__5">$30.00</span>
+                                        <span class="price dib mb__5">$ {{product.PRDPrice}}</span>
                                     </div>
                                 </div>
                             </div>
+                            {% endif %}
+
+                    {% if product.featured == True and  product.approved == True  %}
+
                             <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
                                 <div class="product-inner pr">
                                     <div class="product-image position-relative oh lazyload">
                                         <span class="tc nt_labels pa pe_none cw"><span class="onsale nt_label"><span>-34%</span></span></span>
                                         <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-11.jpg"></div>
+                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="{{product.PRDIMG.url }}"></div>
                                         </a>
                                         <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-12.jpg"></div>
+                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="{{product.PRDIMG.url }}"></div>
                                         </div>
                                         <div class="nt_add_w ts__03 pa ">
                                             <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
@@ -342,335 +376,43 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                        <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-03.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-04.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa ">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#"><span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span></a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js__qs cb chp ttip_nt tooltip_top_left"><span class="tt_txt">Quick Shop</span><i class="iccl iccl-cart"></i><span>Quick Shop</span></a>
-                                        </div>
-                                        <div class="product-attr pa ts__03 cw op__0 tc">
-                                            <p class="truncate mg__0 w__100">S, M, L</p>
-                                        </div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Ridley High Waist</a>
-                                        </h3>
-                                        <span class="price dib mb__5">$36.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                        <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/products/pr-18.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/products/pr-17.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa ">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#"><span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span></a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js_addtc cb chp ttip_nt tooltip_top_left"><span class="tt_txt">Add to cart</span><i class="iccl iccl-cart"></i><span>Add to cart</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Cream women pants</a>
-                                        </h3>
-                                        <span class="price dib mb__5">$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                        <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/products/pr-11.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/products/pr-10.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa ">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#"><span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span></a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js_addtc cb chp ttip_nt tooltip_top_left"><span class="tt_txt">Add to cart</span><i class="iccl iccl-cart"></i><span>Add to cart</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Women Black Pants</a>
-                                        </h3>
-                                        <span class="price dib mb__5">$100.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                        <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_586" data-bgset="assets/images/products/pr-33.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_586" data-bgset="assets/images/products/pr-34.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa ">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#"><span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span></a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js__qs cb chp ttip_nt tooltip_top_left"><span class="tt_txt">Quick Shop</span><i class="iccl iccl-cart"></i><span>Quick Shop</span></a>
-                                        </div>
-                                        <div class="product-attr pa ts__03 cw op__0 tc">
-                                            <p class="truncate mg__0 w__100">S, M, L</p>
-                                        </div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Sweatshirt in Geometric Print</a>
-                                        </h3>
-                                        <span class="price dib mb__5">$35.00</span>
-                                        <div class="swatch__list_js swatch__list lh__1 nt_swatches_on_grid">
-                                            <span data-bgset="assets/images/products/pr-33.jpg" class="nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Black</span><span class="swatch__value bg_color_black lazyload"></span></span>
-                                            <span data-bgset="assets/images/products/pr-34.jpg" class="nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Blue</span><span class="swatch__value bg_color_blue lazyload"></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                        <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-09.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-10.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa ">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#"><span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span></a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js__qs cb chp ttip_nt tooltip_top_left"><span class="tt_txt">Quick Shop</span><i class="iccl iccl-cart"></i><span>Quick Shop</span></a>
-                                        </div>
-                                        <div class="product-attr pa ts__03 cw op__0 tc">
-                                            <p class="truncate mg__0 w__100">S, M</p>
-                                        </div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Mercury Tee</a>
-                                        </h3>
-                                        <span class="price dib mb__5">$68.00</span>
-                                        <div class="swatch__list_js swatch__list lh__1 nt_swatches_on_grid">
-                                            <span data-bgset="assets/images/products/pr-15.jpg" class="nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">White Cream</span><span class="swatch__value bg_color_white-cream lazyload" data-bgset="assets/images/products/dot-01.jpg"></span></span>
-                                            <span data-bgset="assets/images/products/pr-14.jpg" class="nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Heart Dotted</span><span class="swatch__value bg_color_heart-dotted lazyload" data-bgset="assets/images/products/dot-02.jpg"></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                        <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-05.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/megamenu/pr-06.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa ">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right">
-                                                <span class="tt_txt">Add to Wishlist</span>
-                                                <i class="facl facl-heart-o"></i>
-                                            </a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#">
-                                                <span class="tt_txt">Quick view</span>
-                                                <i class="iccl iccl-eye"></i>
-                                                <span>Quick view</span>
-                                            </a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js__qs cb chp ttip_nt tooltip_top_left">
-                                                <span class="tt_txt">Quick Shop</span>
-                                                <i class="iccl iccl-cart"></i>
-                                                <span>Quick Shop</span>
-                                            </a>
-                                        </div>
-                                        <div class="product-attr pa ts__03 cw op__0 tc">
-                                            <p class="truncate mg__0 w__100">S, M, L</p>
-                                        </div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Blush Beanie</a>
-                                        </h3>
-                                        <span class="price dib mb__5">$15.00</span>
-                                        <div class="swatch__list_js swatch__list lh__1 nt_swatches_on_grid">
-                                            <span data-bgset="assets/images/products/pr-05.jpg" class="lazyload nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Grey</span><span class="swatch__value bg_color_grey"></span></span>
-                                            <span data-bgset="assets/images/products/pr-31.jpg" class="lazyload nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Pink</span><span class="swatch__value bg_color_pink"></span></span>
-                                            <span data-bgset="assets/images/products/pr-32.jpg" class="lazyload nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Black</span><span class="swatch__value bg_color_black"></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh">
-                                        <span class="tc nt_labels pa pe_none cw"><span class="onsale nt_label"><span>-25%</span></span></span>
-                                        <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/home-classic/pr-11.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/home-classic/pr-10.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa ">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#"><span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span></a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js__qs cb chp ttip_nt tooltip_top_left"><span class="tt_txt">Quick Shop</span><i class="iccl iccl-cart"></i><span>Quick Shop</span></a>
-                                        </div>
-                                        <div class="product-attr pa ts__03 cw op__0 tc">
-                                            <p class="truncate mg__0 w__100">XS, S, M</p></div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Cluse La Boheme Rose Gold</a>
-                                        </h3>
-                                        <span class="price dib mb__5"><del>$60.00</del><ins>$45.00</ins></span>
-                                        <div class="swatch__list_js swatch__list lh__1 nt_swatches_on_grid">
-                                            <span data-bgset="assets/images/home-classic/pr-10.jpg" class="nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Green</span><span class="swatch__value bg_color_green"></span></span>
-                                            <span data-bgset="assets/images/home-classic/pr-09.jpg" class="nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Grey</span><span class="swatch__value bg_color_grey"></span></span>
-                                            <span data-bgset="assets/images/home-classic/pr-12.jpg" class="nt_swatch_on_bg swatch__list--item pr ttip_nt tooltip_top_right"><span class="tt_txt">Blue</span><span class="swatch__value bg_color_blue"></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                            <span class="tc nt_labels pa pe_none cw">
-                                                <span class="onsale nt_label"><span>-34%</span></span>
-                                            </span>
-                                        <a class="db" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/home-fashion-simple/pr-01.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_66" data-bgset="assets/images/home-fashion-simple/pr-02.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right">
-                                                <span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i>
-                                            </a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#">
-                                                <span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span>
-                                            </a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js__qs cb chp ttip_nt tooltip_top_left">
-                                                <span class="tt_txt">Quick Shop</span><i class="iccl iccl-cart"></i><span>Quick Shop</span>
-                                            </a>
-                                        </div>
-                                        <div class="product-attr pa ts__03 cw op__0 tc">
-                                            <p class="truncate mg__0 w__100">S, M, L</p></div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Short Sleeved Hoodie</a>
-                                        </h3>
-                                        <span class="price dib mb__5"><del>$45.00</del><ins>$30.00</ins></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                        <span class="tc nt_labels pa pe_none cw"></span>
-                                        <a class="db" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/shop/pr-01.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/shop/pr-02.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right">
-                                                <span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i>
-                                            </a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#">
-                                                <span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span>
-                                            </a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js_addtc cb chp ttip_nt tooltip_top_left">
-                                                <span class="tt_txt">Add to cart</span><i class="iccl iccl-cart"></i><span>Add to cart</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Chill candle</a></h3>
-                                        <span class="price dib mb__5">$16.00 </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-6 pr_animated done mt__30 pr_grid_item product nt_pr desgin__1">
-                                <div class="product-inner pr">
-                                    <div class="product-image pr oh lazyload">
-                                        <a class="d-block" href="product-detail-layout-01.html">
-                                            <div class="pr_lazy_img main-img nt_img_ratio nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/home-fashion-9/pr-s-47.jpg"></div>
-                                        </a>
-                                        <div class="hover_img pa pe_none t__0 l__0 r__0 b__0 op__0">
-                                            <div class="pr_lazy_img back-img pa nt_bg_lz lazyload padding-top__127_571" data-bgset="assets/images/home-fashion-9/pr-s-48.jpg"></div>
-                                        </div>
-                                        <div class="nt_add_w ts__03 pa ">
-                                            <a href="#" class="wishlistadd cb chp ttip_nt tooltip_right"><span class="tt_txt">Add to Wishlist</span><i class="facl facl-heart-o"></i></a>
-                                        </div>
-                                        <div class="hover_button op__0 tc pa flex column ts__03">
-                                            <a class="pr nt_add_qv js_add_qv cd br__40 pl__25 pr__25 bgw tc dib ttip_nt tooltip_top_left" href="#"><span class="tt_txt">Quick view</span><i class="iccl iccl-eye"></i><span>Quick view</span></a>
-                                            <a href="#" class="pr pr_atc cd br__40 bgw tc dib js_addtc cb chp ttip_nt tooltip_top_left"><span class="tt_txt">Add to cart</span><i class="iccl iccl-cart"></i><span>Add to cart</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-info mt__15">
-                                        <h3 class="product-title pr fs__14 mg__0 fwm">
-                                            <a class="cd chp" href="product-detail-layout-01.html">Sport Sneaker</a>
-                                        </h3>
-                                        <span class="price dib mb__5">$35.00</span>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endif %}
+                          {% endfor %}
                         </div>
                         <!--end products list-->
 
                         <!--navigation-->
                         <div class="products-footer tc mt__40">
+
                             <nav class="nt-pagination w__100 tc paginate_ajax">
-                                <ul class="pagination-page page-numbers">
-                                    <li><span class="page-numbers current">1</span></li>
-                                    <li><a class="page-numbers" href="#">2</a></li>
-                                    <li><a class="page-numbers" href="#">3</a></li>
-                                    <li><a class="page-numbers" href="#">4</a></li>
-                                    <li><a class="next page-numbers" href="#">Next</a></li>
-                                </ul>
+                               {% if product_list.has_other_pages %}
+
+                                    <ul class="pagination-page page-numbers">
+                                {% for pages in product_list.paginator.page_range %}
+                                        {% if product_list.number == pages %}
+
+                                        <li><span class="page-numbers current">{{pages}}</span></li>
+                                  {% else %}
+                                         <li><a class="page-numbers" href="?page={{pages}}">{{pages}}</a></li>
+                                  {% endif%}
+                                  {% endfor %}
+                                    {% if product_list.has_next %}
+
+                                        <li><a class="next page-numbers" href="?page={{ product_list.next_page_number}}">Next</a></li>
+                                    {% else %}
+                                          <li><a class="next page-numbers" href="#">Next</a></li>
+                                    {% endif %}
+
+
+                                    </ul>
+                               {% endif %}
                             </nav>
                         </div>
                         <!--end navigation-->
 {% block seller  %}
-{% endblock %}
+                        <a id="nt_backtop" class="pf br__50 z__100 des_bt1" href="#"><span class="tc br__50 db cw"><i class="pr pegk pe-7s-angle-up"></i></span></a>
+
+{% endblock  %}
                     </div>
                 </div>
             </div>
@@ -678,9 +420,16 @@
         </div>
 
     </div>
-{% endblock  %}
+    </div>
 
-</div>
+<script src="{% static  'js/nouislider.min.js' %}"></script>
+<script src="{% static  'js/photoswipe.min.js' %} "></script>
+<script src="{% static  'js/photoswipe-ui-default.min.js' %}"></script>
+<script src="{% static  'js/drift.min.js' %}"></script>
+<script src="{% static  'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static  'js/resize-sensor.min.js' %}"></script>
+{% endblock body  %}
+
 
 
 </body>
