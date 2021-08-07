@@ -121,7 +121,7 @@ def CartView(request, total=0, quantity=0, tax=0, cart_items=None):
         'total_tex': total_tex,
 
     }
-    return render(request, 'cart.html', context)
+    return render(request, 'shopping-cart.html', context)
 
 
 def remove_cart(request, product_id,cart_item_id):
