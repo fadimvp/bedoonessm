@@ -93,6 +93,20 @@ def Product_detail(request, slug):
     return render(request, 'product/product-detail-layout-01.html', context)
 
 
+def Puopup_detail(request, slug):
+    # pro_detail = Product.objects.get(slug=slug)
+    pro_detail = get_object_or_404(Product, PRDSlug=slug)
+    d = Category.objects.all()
+    in_cart = CartItems.objects.filter(cart__cart_id=_cart_id(request), product=pro_detail).exists()
+
+    context = {
+        'pro_detail': pro_detail,
+        'd': d,
+        'in_cart': in_cart,
+
+    }
+    return render(request, 'product/home-classic.html', context)
+
 
 # store :  any  products under category  and  slug
 def store(request, category_slug=None):

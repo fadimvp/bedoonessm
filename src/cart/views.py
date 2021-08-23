@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -15,7 +16,7 @@ def v(request):
     context = {
         'vv': vv
     }
-    return render(request, 'cart.html', context)
+    return render(request, 'shopping-cart.html', context)
 
 
 def _cart_id(request):  # creat session id to cart
@@ -153,3 +154,33 @@ def remove_cart_item(request, product_id,cart_item_id):  # remove all items in r
 
     cart_item.delete()
     return redirect('cart:cart_item')
+@login_required(login_url='account:login')
+def checkout(request, total=0, quantity=0, tax=0, cart_items=None):
+    try:
+        total = 0
+        quantity = 0
+        tax = 0
+        if request.user.is_authenticated:
+
+            cart_items = CartItems.objects.filter(user=request.user)
+        else:
+            cart = Cart.objects.get(cart_id=_cart_id(request))
+
+            cart_items = CartItems.objects.filter(cart=cart)
+        for cart_item in cart_items:
+            total += (cart_item.product.PRDPrice * cart_item.quantity)
+            quantity += cart_item.quantity
+            tax += (total) * (cart_item.product.tax)
+        total_tex = (total + tax)
+
+    except ObjectDoesNotExist:
+        total_tex = (total + tax)
+    context = {
+        'cart_items': cart_items,
+        'quantity': quantity,
+        'total': total,
+        'tax': tax,
+        'total_tex': total_tex,
+
+    }
+    return render(request, 'checkout.html', context)

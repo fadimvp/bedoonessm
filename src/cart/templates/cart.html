@@ -138,7 +138,7 @@
                            <td class="product-img m-none"><a href=""><img class="img-fluid" src="{{ item.product.PRDIMG.url}}" alt=""></a></td>
                            <td>
                                <a href="{{ item.product.get_absolute_url}}" class="product-title">
-                                   {{ item }}                               </a>
+                                   {{ item }}     errer                          </a>
                                <dl class="variation">
                                    {% for items in item.variations.all %}
                                    <dt class="sold-by">{{ items.variation_category}}: {{items.variation_vale}}</dt>

@@ -99,6 +99,9 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('products:pro_detail', kwargs={"slug": self.PRDSlug})
 
+    def get_absolute_urll(self):
+        return reverse('products:puopup_detail', kwargs={"slug": self.PRDSlug})
+
 var_category_choice = (
     ("color", "color"),
     ("size","size"),

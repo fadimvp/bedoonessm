@@ -6,12 +6,13 @@ class RegistertionForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
 
         'placeholder': 'Enter password here ',
-        'class': 'form-control'
+        'class': 'form-row'
     }))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
 
         'placeholder': 'Enter confirm_password   ',
-        'class': 'form-control'
+        'class': 'form-row',
+        'aria-required': 'true',
     }))
 
     class Meta:
@@ -21,9 +22,10 @@ class RegistertionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RegistertionForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs['placeholder '] = 'please  enter your email '
+        self.fields['first_name'].widget.attrs['placeholder '] = 'First Name '
 
         for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].widget.attrs['class'] = 'form-row'
 
     def clean(self):
 

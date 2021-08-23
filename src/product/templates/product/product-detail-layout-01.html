@@ -105,7 +105,15 @@
                                     <div class="kalles-section-pr_summary kalles-section summary entry-summary mt__30">
                                         <h1 class="product_title entry-title fs__16"> {{pro_detail}} </h1>
                                         <div class="flex wrap fl_between al_center price-review">
-                                            <p class="price_range" id="price_ppr">SAR  {{pro_detail.PRDDisc}} </p>
+                                       {%if pro_detail.PRDDisc > 0%}
+
+                                            <p class="price_range" id="price_ppr">SAR  {{pro_detail.PRDDisc}}
+                                             <del>SAR {{pro_detail.PRDPrice}} </del>
+                                            </p>
+
+                                       {% else %}
+                                        <p class="price_range" id="price_ppr">SAR  {{pro_detail.PRDPrice}} </p>
+                                            {%endif %}
                                             <a href="#tab_reviews_product" class="rating_sp_kl dib">
                                                 <div class="kalles-rating-result">
                                                     <span class="kalles-rating-result__pipe">

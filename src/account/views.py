@@ -51,13 +51,14 @@ def register(request):
     else:
 
         form1 = RegistertionForm(request.POST)
+        redirect('account:register')
     context = {
 
         'form1': form1,
 
     }
 
-    return render(request, 'register.html', context)
+    return render(request, 'product/base.html', context)
 
 
 def Login(request):
@@ -73,12 +74,12 @@ def Login(request):
             return redirect('/')
         else:
             messages.error(request, 'incorrect password try again ')
-            return redirect('account:login')
+            return redirect('/')
 
     context = {
 
     }
-    return render(request, 'register.html', context)
+    return render(request, 'product/base.html', context)
 
 
 @login_required(login_url='login')
@@ -90,7 +91,7 @@ def Logout(request):
     context = {
 
     }
-    return render(request, 'register.html')
+    return render(request, 'product/base.html')
 
 
 def activate(request, uidb64, token):
